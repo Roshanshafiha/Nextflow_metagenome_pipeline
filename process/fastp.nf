@@ -16,7 +16,7 @@ process Fastp {
 	script:
     """
     fastp \\
-        --thread ${params.fastp_threads} \\
+        --thread 4 \\
         --in1 ${reads[0]} \\
         --in2 ${reads[1]} \\
         --detect_adapter_for_pe \\

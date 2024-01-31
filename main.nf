@@ -22,14 +22,18 @@ log.info """\
 
 
 
-include { Fastp } from './modules/minpath_module'
+include { Fastp } from './process/fastp'
 
 
 workflow {
-    reads_ch = Channel.fromFilePairs("${params.inputDir}/**/*_{R1,R2}.fastq.gz", size: -1, maxDepth: 1)
-    input = Channel.fromPath(params.inputDir, checkIfExists: true)
     
-    Fastp( input )
+    reads_ch = Channel.fromFilePairs("${params.inputDir}/**/" + '*_{1,2}.*.gz', size: -1, maxDepth: 1)
+    input = Channel.fromPath(params.inputDir, checkIfExists: true)
+
+    reads_ch.view()
+    
+    Fastp(reads_ch )
+
 }
 
 workflow.onComplete {
