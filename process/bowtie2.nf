@@ -19,7 +19,7 @@ process Bowtie_removehost {
 	ls -lah
     bowtie2 \
         -p 8 \
-        -x \
+        -x ${params.host} \
         --very-sensitive \
         -1 "${trimmed_reads[0]}" -2 "${trimmed_reads[1]}" \
         --un-conc-gz ${meta}_%_${state}.fastq.gz \

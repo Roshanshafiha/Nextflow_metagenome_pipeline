@@ -12,7 +12,7 @@ params.runType = 'execution'
 
 
 //parameters to consider 
-params.host_to_decontaminate = '/home/shafiha/metgenome_resources/host/GRCh38_noalt_as'
+params.host = '/home/shafiha/metgenome_resources/host/GRCh38_noalt_as'
 
 
 log.info """\
@@ -27,6 +27,7 @@ log.info """\
 
 
 include { Fastp } from './process/fastp'
+include { Bowtie_removehost } from './process/bowtie2'
 
 
 workflow {
@@ -37,9 +38,9 @@ workflow {
     reads_ch.view()
     
     Fastp(reads_ch )
-    //state_ch = Channel.value('unmapped')
-    //type_ch = Channel.value('host_removal')
-    //Bowtiehost( Fastp.out.trimmed_reads, type_ch, state_ch, bowtie_db_ch.collect() )
+    state_ch = Channel.value('unmapped')
+    type_ch = Channel.value('host_removal')
+    Bowtie_removehost( Fastp.out.trimmed_reads, type_ch, state_ch )
 
 }
 
