@@ -8,7 +8,7 @@ process Fastp {
 	tuple val(meta), path(reads)
 
     output:
-    tuple val(meta), path("*.trim.fastq.gz"), emit: trimmed_reads_ch
+    tuple val(meta), path("*.trim.fastq.gz"), emit: trimmed_reads
     tuple val(meta), path("*.json")           , emit: json
     tuple val(meta), path("*.html")           , emit: html
     path("*.json") , emit: fastp_json

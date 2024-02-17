@@ -11,6 +11,10 @@ params.workDir          = "$projectDir/work/"
 params.runType = 'execution'
 
 
+//parameters to consider 
+params.host_to_decontaminate = '/home/shafiha/metgenome_resources/host/GRCh38_noalt_as'
+
+
 log.info """\
          Metagenome pipeline
          =============================
@@ -33,6 +37,9 @@ workflow {
     reads_ch.view()
     
     Fastp(reads_ch )
+    //state_ch = Channel.value('unmapped')
+    //type_ch = Channel.value('host_removal')
+    //Bowtiehost( Fastp.out.trimmed_reads, type_ch, state_ch, bowtie_db_ch.collect() )
 
 }
 
