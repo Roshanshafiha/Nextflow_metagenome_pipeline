@@ -8,21 +8,21 @@ process Bowtie_removehost {
     tuple val(meta), path(trimmed_reads)
     val type
     val state
+    path index
 
     output:
-    tuple val(meta), path("*_${state}.fastq.gz")   , emit: reads
+    tuple val(meta), path("*_${state}.fastq.*.gz")   , emit: reads
     tuple val(meta), path('*.out'),        emit:bowtie2_out
     path("*.out")                ,        emit:bowtie2_human_removal
 
 	script:
     """
-	ls -lah
     bowtie2 \
-        -p 8 \
-        -x ${params.host} \
+        -p 4 \
+        -x ${index[0].getSimpleName()} \
         --very-sensitive \
         -1 "${trimmed_reads[0]}" -2 "${trimmed_reads[1]}" \
-        --un-conc-gz ${meta}_%_${state}.fastq.gz \
+        --un-conc-gz ${meta}_${state}.fastq.gz \
         -S /dev/null \
         2> ${meta}_${type}.out
     """
