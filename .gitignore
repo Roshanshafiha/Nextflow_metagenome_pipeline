@@ -1,0 +1,6 @@
+input_data/
+.nextflow/
+.nextflow.*
+pipeline-output/
+work/
+nextflow.config
