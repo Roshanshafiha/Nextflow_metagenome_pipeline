@@ -17,7 +17,7 @@ d2 = []
 host.eachFile {d2 << it}
 Channel.from(d2).set{host_file}
 
-//metaphlan db
+//metaphlan db (path to mtaphlan db)
 metaphlan_db = path('/home/shafiha/metaphlan_db')
 //d3 = []
 //metaphlan.eachFile {d3 << it}
@@ -52,7 +52,6 @@ workflow {
     type_ch = Channel.value('host_removal')
 
     Bowtie_removehost( Fastp.out.trimmed_reads, type_ch, state_ch ,host_file.collect())
-    // issue with running metaphlan
     Metaphlan( Fastp.out.trimmed_reads,metaphlan_db.collect())
 
 
